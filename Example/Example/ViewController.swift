@@ -38,22 +38,24 @@ class ViewController: UIViewController {
 
         let viewModel = self.viewModel
         let stackView = VStackView(alignment: .leading, spacing: 10) {
-//            UILabel()
-//                .perform { view in
-//                    view.numberOfLines = 0
-//                    view.backgroundColor = .lightGray
-//                    view.textColor = .red
-//                }
-//                .onReceive(viewModel.$text) { view, text in
-//                    view.text = text
-//                }
-//                .padding(.leading, 20)
-//                .padding(.top, 30)
-//                .perform { view in
-//                    view.backgroundColor = .green
-//                }
-//
-//            Divider()
+            UILabel()
+                .stacked
+                .perform { view in
+                    view.numberOfLines = 0
+                    view.backgroundColor = .lightGray
+                    view.textColor = .red
+                }
+                .onReceive(viewModel.$text) { view, text in
+                    view.text = text
+                }
+                .padding(.leading, 20)
+                .padding(.top, 30)
+                .perform { view in
+                    view.backgroundColor = .green
+                }
+
+            Divider()
+                .stacked
 //
 
 //            Spacer()
@@ -65,18 +67,21 @@ class ViewController: UIViewController {
 //                }
 
             Spacer()
+                .stacked
                 .perform {
                     $0.backgroundColor = .purple
-                    $0.addSubview(
-                        UILabel()
-                            .onReceive(viewModel.$spacing) {
-                                $0.text = "spacing \($1)"
-                            }
-                    )
+//                    $0.addSubview(
+//                        UILabel()
+//                            .stack
+//                            .onReceive(viewModel.$spacing) {
+//                                $0.text = "spacing \($1)"
+//                            }
+//                    )
                 }
                 .onReceive(viewModel.$spacing) {
                     $0.spacing = $1
                 }
+ 
 
 //
 //            Divider()
@@ -100,49 +105,52 @@ class ViewController: UIViewController {
 //                    }
 //            }
 
-            ZStackView(alignment: .center) {
-                UIView()
-                    .sizeConstraint(width: 200, height: 200)
-                    .perform { view in
-                        view.backgroundColor = .blue
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            view.sizeConstraint(width: 300, height: 300)
-                        }
-                    }
-
-                UILabel()
-                    .perform { label in
-                        label.backgroundColor = .yellow
-                        label.numberOfLines = 0
-                        label.text = "ZStack\nmultiple line!\nmultiple line!"
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            label.text = "ZStack one line!"
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                            label.text = " === ZStack alignment changed! === "
-                        }
-                    }
-            }
-            .perform { zstack in
-                zstack.backgroundColor = .red
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    zstack.insertArrangedSubview(at: 1) {
-                        UILabel()
-                            .perform {
-                                $0.backgroundColor = .systemPink
-                                $0.numberOfLines = 0
-                                $0.text = "\n\n new arrange view!"
-                            }
-                    }
-                }
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    zstack.alignment = .top
-                }
-            }
+//            ZStackView(alignment: .center) {
+//                UIView()
+//                    .stack
+//                    .sizeConstraint(width: 200, height: 200)
+//                    .perform { view in
+//                        view.backgroundColor = .blue
+//
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                            view.sizeConstraint(width: 300, height: 300)
+//                        }
+//                    }
+//
+//                UILabel()
+//                    .stack
+//                    .perform { label in
+//                        label.backgroundColor = .yellow
+//                        label.numberOfLines = 0
+//                        label.text = "ZStack\nmultiple line!\nmultiple line!"
+//
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                            label.text = "ZStack one line!"
+//                        }
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                            label.text = " === ZStack alignment changed! === "
+//                        }
+//                    }
+//            }
+//            .stack
+//            .perform { zstack in
+//                zstack.backgroundColor = .red
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                    zstack.insertArrangedSubview(at: 1) {
+//                        UILabel()
+//                            .perform {
+//                                $0.backgroundColor = .systemPink
+//                                $0.numberOfLines = 0
+//                                $0.text = "\n\n new arrange view!"
+//                            }
+//                    }
+//                }
+//
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                    zstack.alignment = .top
+//                }
+//            }
         }
 
         view.addSubview(stackView)

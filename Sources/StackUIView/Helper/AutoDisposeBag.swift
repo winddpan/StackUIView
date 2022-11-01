@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-private func synchronizedBag<T>(_ obj: AnyObject, _ action: () -> T) -> T {
+func synchronizedBag<T>(_ obj: AnyObject, _ action: () -> T) -> T {
     objc_sync_enter(obj)
     let result = action()
     objc_sync_exit(obj)

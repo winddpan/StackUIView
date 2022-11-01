@@ -34,6 +34,17 @@ open class ZStackView: UIView {
         }
     }
 
+    public required init(alignment: Alignment = .center, @StackPerformViewBuilder content: () -> [StackPerform]) {
+        self.alignment = alignment
+        super.init(frame: .zero)
+
+        let views = content().compactMap { $0.relateView }
+        views.forEach { view in
+            view.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(view)
+        }
+    }
+
     public required init(alignment: Alignment = .center, @StackViewBuilder content: () -> [UIView]) {
         self.alignment = alignment
         super.init(frame: .zero)

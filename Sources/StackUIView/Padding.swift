@@ -24,17 +24,17 @@ public struct PaddingEdge: OptionSet {
     public static let all: PaddingEdge = [.top, .bottom, .leading, .trailing]
 }
 
-public extension UIView {
-    func padding(_ length: CGFloat) -> PaddingBoxView {
+public extension StackPerforming {
+    func padding(_ length: CGFloat) -> StackPerforming<PaddingBoxView> {
         padding(.all, length)
     }
 
-    func padding(_ edges: PaddingEdge, _ length: CGFloat) -> PaddingBoxView {
+    func padding(_ edges: PaddingEdge, _ length: CGFloat) -> StackPerforming<PaddingBoxView> {
         let box: PaddingBoxView
-        if let _box = self as? PaddingBoxView {
+        if let _box = self.relateView as? PaddingBoxView {
             box = _box
         } else {
-            box = PaddingBoxView(view: self)
+            box = PaddingBoxView(view: self.view ?? UIView())
         }
 
         var paddings = box.paddings
@@ -53,7 +53,7 @@ public extension UIView {
         if paddings != box.paddings {
             box.paddings = paddings
         }
-        return box
+        return box.stacked
     }
 }
 
